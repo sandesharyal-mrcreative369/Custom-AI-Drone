@@ -1,0 +1,49 @@
+# =========================
+# STM32CubeIDE Build Files
+# =========================
+
+Debug/
+Release/
+
+# Object and dependency files
+*.o
+*.d
+*.su
+*.map
+*.elf
+*.hex
+*.bin
+*.list
+
+# Generated temporary files
+*.tmp
+*.log
+
+# =========================
+# Eclipse / CubeIDE
+# =========================
+
+.settings/
+
+# Workspace files
+.metadata/
+
+# =========================
+# VS Code (optional)
+# =========================
+
+.vscode/
+
+# =========================
+# Operating System Files
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# Backup Files
+# =========================
+
+*~
+*.bak
