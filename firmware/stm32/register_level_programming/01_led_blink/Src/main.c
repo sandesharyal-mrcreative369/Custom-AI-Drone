@@ -22,34 +22,60 @@
 int main(void)
 
 {
-//	uint32_t *RCC_GPIOD = (uint32_t*) (0x40023800 + 0x30);
-//	*RCC_GPIOD |= 0x01<<3;
-//
-//	uint32_t *gpiod_moder = (uint32_t*) (0x40020C00);
-//	*gpiod_moder &= 0xF3FFFFFF;    //1111 0011 1111 1111 1111 1111 1111 1111
-//	*gpiod_moder |= 0x01<<26;
-//
-//
-//	uint32_t *gpiod_state = (uint32_t*) (0x40020C00 + 0x14);
-//
-//
-//    /* Loop forever */
-//	while(1){
-//		for(volatile uint32_t i = 0;i<1000000;i++){
-//			*gpiod_state |= 0x01<<13;  //ON LED
-//
-//		}
-//
-//		for(volatile uint32_t i = 0;i<1000000;i++){
-//			*gpiod_state &= ~(0x01<<13);  //OFF LED
-//
-//
-//		}
-//	}
+
+	/* ============== CLOCK CONFIGURATION ========================*/
+
+	//Enabling the CLock access for GPIOD
+	uint32_t *RCC_GPIOD = (uint32_t*) (0x40023800 + 0x30);
+	*RCC_GPIOD |= 0x01<<3;
+
+
+	/* ======================= GPIO CONFIGURATION =========================*/
+
+	//Configure PD13 as output mode
+	uint32_t *gpiod_moder = (uint32_t*) (0x40020C00);
+
+	//Clear mode bits for PD13
+	*gpiod_moder &= 0xF3FFFFFF;    //1111 0011 1111 1111 1111 1111 1111 1111
+
+	//Set PD13 as general purpose output
+	*gpiod_moder |= 0x01<<26;
+
+
+	/* ========================== OUTPUT DATA REGISTER ===============================*/
+
+	//Address of GPIO output data register
+	uint32_t *gpiod_state = (uint32_t*) (0x40020C00 + 0x14);
 
 
 
+	/* ==================== MAIN LOOP SECTION ========================== */
+    /* Loop forever */
+	while(1){
+
+		/* --------------LED BLINK Loop-------------------  */
+
+		//Delay Loop
+		for(volatile uint32_t i = 0;i<1000000;i++){
+
+			//Turn ON LED connected to PD13
+			*gpiod_state |= 0x01<<13;
+		}
+
+		//Delay Loop
+		for(volatile uint32_t i = 0;i<1000000;i++){
+
+			//Turn OFF LED connected to PD13
+			*gpiod_state &= ~(0x01<<13);
+
+
+		}
+	}
+
+
+	// Main program loop runs forever
 
 	for(;;);
 
 }
+
