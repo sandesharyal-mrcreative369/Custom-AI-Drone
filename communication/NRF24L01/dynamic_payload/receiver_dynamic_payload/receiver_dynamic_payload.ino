@@ -58,7 +58,7 @@ if(radio.available()){
 
   // Creates Dynamic Array
   char *bufferDataPacket = new char[packetSize + 1];
-  radio.read(&bufferDataPacket,sizeof(bufferDataPacket));
+  radio.read(&bufferDataPacket,sizeof(packetSize));
 
   //String null termination
   bufferDataPacket[packetSize] = '\0';
