@@ -2,10 +2,10 @@
 #include<nRF24L01.h>
 #include<RF24.h>
 
-RF radio(4,5);  // CE and CSN
+RF24 radio(4,5);  // CE and CSN
 
 //Address Pipe
-const byte address[5] = "00011";
+const byte address[] = "00011";
 
 //Data to be sent
 char dataPacket[] = "Hello Receiver";
@@ -46,7 +46,7 @@ radio.enableDynamicPayloads();
 
 void loop() {
 
-  bool success = radio.write(&dataPacket,sizeof(dataPacket));
+  bool success = radio.write(dataPacket,sizeof(dataPacket));
   Serial.print("Data-->receiver successfully: ");
   Serial.println(dataPacket);
 
@@ -54,7 +54,7 @@ void loop() {
     Serial.println("Successfully Delievred");
 
     if(radio.isAckPayloadAvailable()){
-      radio.read(&ack,sizeof(ack));
+      radio.read(ack,sizeof(ack));
       Serial.print("ACK Receive: ");
       Serial.println(ack);
 
